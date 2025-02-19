@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Surprise Juliette</title>
+    <style>
+        /* Styles CSS */
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff6ec4, #7873f5);
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            color: #fff;
+            margin-top: 15vh;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 50px;
+            animation: fadeInDown 2s ease-out;
+        }
+
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .time {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        .time span:first-child {
+            display: block;
+            font-size: 4em;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Animations des étoiles */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: shimmer linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes shimmer {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(100vw);
+            }
+        }
+
+        /* Styles pour les photos */
+        .photos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 50px;
+            max-width: 90%;
+            margin: 50px auto;
+            overflow: auto;
+            max-height: 60vh;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .photos img {
+            width: 200px;
+            height: auto;
+            border-radius: 15px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Compte à rebours 😁✌🏽 à la roulette Julie</h1>
+        <div id="countdown">
+            <div class="time">
+                <span id="days">00</span>
+                <span>Jours</span>
+            </div>
+            <div class="time">
+                <span id="hours">00</span>
+                <span>Heures</span>
+            </div>
+            <div class="time">
+                <span id="minutes">00</span>
+                <span>Minutes</span>
+            </div>
+            <div class="time">
+                <span id="seconds">00</span>
+                <span>Secondes</span>
+            </div>
+        </div>
+
+        <!-- Section pour les photos de Juliette -->
+        <div class="photos">
+            <img src="https://files.catbox.moe/0ct879.jpg" alt="Julie">
+            <img src="https://files.catbox.moe/6fcwgb.jpg" alt="Julivi😹">
+            <img src="https://files.catbox.moe/1zjc6t.jpg" alt="Juuuu🤩">
+            <img src="https://files.catbox.moe/2jax7n.jpg" alt="Jujuuu🥳">
+            <img src="https://files.catbox.moe/ug223k.jpg" alt="Jujuvi😊🎊">
+            <img src="https://files.catbox.moe/9t6p07.jpg" alt="Ju🎁🫶🎉">
+            <!-- Ajoute plus de photos si nécessaire -->
+        </div>
+
+        <!-- Musique de fond -->
+        <audio autoplay loop>
+            <source src="https://files.catbox.moe/s62rae.mp3" type="audio/mpeg">
+            Ton navigateur ne supporte pas la balise audio.
+        </audio>
+    </div>
+
+    <!-- Animations des étoiles et script du compte à rebours -->
+    <script>
+        // Fonction de compte à rebours
+        const countdown = () => {
+            const countDate = new Date('February 25, 2025 00:00:00').getTime();
+            const now = new Date().getTime();
+            const gap = countDate - now;
+
+            // Calcul du temps
+            const second = 1000;
+            const minute = second * 60;
+            const hour = minute * 60;
+            const day = hour * 24;
+
+            // Calcul des jours, heures, minutes et secondes
+            const textDay = Math.floor(gap / day);
+            const textHour = Math.floor((gap % day) / hour);
+            const textMinute = Math.floor((gap % hour) / minute);
+            const textSecond = Math.floor((gap % minute) / second);
+
+            // Affichage
+            document.getElementById('days').innerText = textDay;
+            document.getElementById('hours').innerText = textHour;
+            document.getElementById('minutes').innerText = textMinute;
+            document.getElementById('seconds').innerText = textSecond;
+        };
+
+        setInterval(countdown, 1000);
+        countdown(); // Appel initial pour éviter le délai d'une seconde
+
+        // Animations des étoiles
+        const createStar = () => {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.bottom = -10 + 'px';
+            star.style.width = Math.random() * 3 + 1 + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDuration = Math.random() * 10 + 5 + 's';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, (parseFloat(star.style.animationDuration) + parseFloat(star.style.animationDelay)) * 1000);
+        };
+
+        setInterval(createStar, 100);
+    </script>
+</body>
+  </html>
